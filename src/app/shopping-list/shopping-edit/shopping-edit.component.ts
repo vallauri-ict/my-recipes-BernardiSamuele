@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { IngredientModel } from '../../models/ingredient.model';
@@ -13,14 +19,15 @@ export class ShoppingEditComponent {
   ingredientName: string = '';
   ingredientAmount: number = 0;
   @Output() ingredientAdded = new EventEmitter<IngredientModel>();
+  @ViewChild('name') _name!: ElementRef;
 
   onClear() {
     this.ingredientName = '';
     this.ingredientAmount = 0;
   }
-  
+
   onAddIngredient() {
-    if(this.ingredientAmount === 0) {
+    if (this.ingredientAmount === 0) {
       alert('Amount must be different than 0');
       return;
     }
@@ -30,5 +37,6 @@ export class ShoppingEditComponent {
     );
     this.ingredientAdded.emit(newIngredient);
     this.onClear();
+    this._name.nativeElement.focus();
   }
 }

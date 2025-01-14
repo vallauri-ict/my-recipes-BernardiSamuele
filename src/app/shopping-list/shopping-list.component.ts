@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
 import { IngredientModel } from '../models/ingredient.model';
+import { HighlightDirective } from '../shared/highlight.directive';
 
 @Component({
   selector: 'app-shopping-list',
   standalone: true,
-  imports: [ShoppingEditComponent],
+  imports: [ShoppingEditComponent, HighlightDirective],
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.css',
 })
@@ -18,14 +19,15 @@ export class ShoppingListComponent {
   ];
 
   onIngredientAdded(ingredient: IngredientModel) {
-    const ingredientFound = this.ingredients.find(i => i.name === ingredient.name);
-    if(ingredientFound) {
+    const ingredientFound = this.ingredients.find(
+      (i) => i.name === ingredient.name
+    );
+    if (ingredientFound) {
       ingredientFound.amount += ingredient.amount;
-      if(ingredientFound.amount < 0) {
+      if (ingredientFound.amount < 0) {
         ingredientFound.amount = 0;
       }
-    }
-    else {
+    } else {
       this.ingredients.push(ingredient);
     }
   }

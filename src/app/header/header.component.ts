@@ -1,10 +1,11 @@
 import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { DropdownDirective } from '../shared/dropdown.directive';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, DropdownDirective],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
