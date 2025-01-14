@@ -18,4 +18,9 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 })
 export class AppComponent {
   title = 'my-recipes';
+  isRecipe: boolean = true;
+
+  onNavigate(isRecipe: boolean) {
+    this.isRecipe = isRecipe;
+  } 
 }
