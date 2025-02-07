@@ -1,4 +1,4 @@
- <div class="row">
+<div class="row">
   <div class="col-xs-12">
     <button class="btn btn-success" style="margin-bottom: 12px">
       New Recipe
@@ -7,8 +7,8 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    @for (item of recipes; track $index) {
-    <app-recipe-item (recipeItemSelected)="onRecipeItemSelected(item)" [recipe]="item"></app-recipe-item>
+    @for (item of this.recipeService.recipes; track $index) {
+    <app-recipe-item [recipe]="item"></app-recipe-item>
     }
   </div>
 </div>

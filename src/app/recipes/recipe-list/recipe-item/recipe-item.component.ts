@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RecipeModel } from '../../../models/recipe.model';
 import { HighlightDirective } from '../../../shared/highlight.directive';
+import { RecipeService } from '../../recipe.service';
 
 @Component({
   selector: 'app-recipe-item',
@@ -11,9 +12,9 @@ import { HighlightDirective } from '../../../shared/highlight.directive';
 })
 export class RecipeItemComponent {
   @Input() recipe!: RecipeModel;
-  @Output() recipeItemSelected = new EventEmitter<void>();
+  constructor(public recipeService: RecipeService) {}
 
   onSelected() {
-    this.recipeItemSelected.emit();
+    this.recipeService.selectedRecipe = this.recipe;
   }
 }

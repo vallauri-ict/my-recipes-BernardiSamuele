@@ -17,7 +17,7 @@
 <div class="row">
   <div class="col-xs-12">
     <img
-      [src]="recipe.imagePath"
+      [src]="this.recipeService.selectedRecipe!.imagePath"
       alt="immagine ricetta"
       class="img-responsive"
     />
@@ -26,18 +26,21 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <h1>{{ recipe.name }}</h1>
+    <h1>{{ this.recipeService.selectedRecipe!.name }}</h1>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-xs-12">{{ recipe.description }}</div>
+  <div class="col-xs-12">
+    {{ this.recipeService.selectedRecipe!.description }}
+  </div>
 </div>
 
 <div class="row">
   <div class="col-xs-12">
     <h4>Ingredients:</h4>
-    @for(ingredient of recipe.ingredients; track $index) {
+    @for(ingredient of this.recipeService.selectedRecipe!.ingredients; track
+    $index) {
     <p class="ingredient">{{ ingredient.name }} : {{ ingredient.amount }}</p>
     }
   </div>

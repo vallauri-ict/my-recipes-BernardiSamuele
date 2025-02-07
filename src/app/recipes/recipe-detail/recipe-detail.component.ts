@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { RecipeModel } from '../../models/recipe.model';
-import { NgFor } from '@angular/common';
+import { Component } from '@angular/core';
 import { DropdownDirective } from '../../shared/dropdown.directive';
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -11,5 +10,5 @@ import { DropdownDirective } from '../../shared/dropdown.directive';
   styleUrl: './recipe-detail.component.css',
 })
 export class RecipeDetailComponent {
-  @Input() recipe!: RecipeModel;
+  constructor(public recipeService: RecipeService) {}
 }
