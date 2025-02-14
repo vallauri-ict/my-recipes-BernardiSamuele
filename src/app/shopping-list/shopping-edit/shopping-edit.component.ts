@@ -8,6 +8,7 @@ import {
 
 import { FormsModule } from '@angular/forms';
 import { IngredientModel } from '../../models/ingredient.model';
+import { ShoppingListService } from '../shopping-list.service';
 @Component({
   selector: 'app-shopping-edit',
   standalone: true,
@@ -18,8 +19,9 @@ import { IngredientModel } from '../../models/ingredient.model';
 export class ShoppingEditComponent {
   ingredientName: string = '';
   ingredientAmount: number = 0;
-  @Output() ingredientAdded = new EventEmitter<IngredientModel>();
   @ViewChild('name') _name!: ElementRef;
+
+  constructor(private shoppingListService: ShoppingListService) {}
 
   onClear() {
     this.ingredientName = '';
@@ -35,7 +37,7 @@ export class ShoppingEditComponent {
       this.ingredientName,
       this.ingredientAmount
     );
-    this.ingredientAdded.emit(newIngredient);
+    this.shoppingListService.addIngredient(newIngredient);
     this.onClear();
     this._name.nativeElement.focus();
   }

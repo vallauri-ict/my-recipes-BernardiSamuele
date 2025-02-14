@@ -1,11 +1,9 @@
 <div class="row">
   <div class="col-xs-10">
-    <app-shopping-edit
-      (ingredientAdded)="onIngredientAdded($event)"
-    ></app-shopping-edit>
+    <app-shopping-edit></app-shopping-edit>
     <hr />
     <ul class="classlist-group">
-      @for(item of ingredients; track $index) {
+      @for(item of this.shoppingListService.ingredients; track $index) {
       <li
         appHighlight="Yellow"
         defaultColor="LightYellow"
