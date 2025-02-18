@@ -35,4 +35,9 @@
     <button class="btn btn-danger">Delete</button>
     <input type="text" class="form-control inline" readonly />
   </div>
+  @if(this.showIngredientLabel) {
+  <div class="row">
+    <div class="col-xs-12 blinking-text">{{ this.ingredientLabel }}</div>
+  </div>
+  }
 </div>

@@ -1,8 +1,30 @@
 button {
-    margin-right: 7px;
+  margin-right: 7px;
 }
 
 .inline {
-    display: inline-block;
-    width: 140px;
+  display: inline-block;
+  width: 140px;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.blinking-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px;
+  color: green;
+  animation: blink 1s infinite;
 }

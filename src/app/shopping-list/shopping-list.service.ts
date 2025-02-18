@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { DataStorageService } from '../shared/data-storage.service';
 import { IngredientModel } from '../models/ingredient.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShoppingListService {
   ingredients: IngredientModel[] = [];
+  ingredientAdded: Subject<string> = new Subject<string>();
 
   constructor(private dataStorage: DataStorageService) {}
 
@@ -44,7 +46,8 @@ export class ShoppingListService {
       ?.subscribe({
         next: (data) => {
           this.getIngredients();
-          alert('Ingrediente correttamente modificato');
+          // alert('Ingrediente correttamente modificato');
+          this.ingredientAdded.next('Ingrediente correttamente modificato');
         },
         error: (err) => {
           console.log(err);
@@ -58,7 +61,8 @@ export class ShoppingListService {
       ?.subscribe({
         next: (data) => {
           this.getIngredients();
-          alert('Ingrediente correttamente aggiunto');
+          // alert('Ingrediente correttamente aggiunto');
+          this.ingredientAdded.next('Ingrediente correttamente aggiunto');
         },
       });
   }
