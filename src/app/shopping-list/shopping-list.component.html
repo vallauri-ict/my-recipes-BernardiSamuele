@@ -10,6 +10,8 @@
         class="list-group-item"
       >
         {{ item.name }} - {{ item.amount }}
+
+        <button class="btn btn-danger" (click)="onDelete(item)">Delete</button>
       </li>
       }
     </ul>

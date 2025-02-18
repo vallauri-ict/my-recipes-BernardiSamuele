@@ -17,4 +17,8 @@ export class ShoppingListComponent {
   ngOnInit() {
     this.shoppingListService.getIngredients();
   }
+
+  onDelete(item: IngredientModel) {
+    this.shoppingListService.deleteIngredient(item._id!);
+  }
 }

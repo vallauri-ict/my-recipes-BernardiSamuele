@@ -72,4 +72,8 @@ export class ShoppingListService {
       this.addIngredient(ingredient);
     }
   }
+
+  deleteIngredient(id: string) {
+    console.log(id);
+  }
 }
