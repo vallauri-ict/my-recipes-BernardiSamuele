@@ -8,12 +8,13 @@ import { Subject } from 'rxjs';
 })
 export class ShoppingListService {
   ingredients: IngredientModel[] = [];
+  remaining = 0;
   ingredientAdded: Subject<string> = new Subject<string>();
 
-  constructor(private dataStorage: DataStorageService) {}
+  constructor(private dataStorageService: DataStorageService) {}
 
   getIngredients() {
-    this.dataStorage.inviaRichiesta('GET', '/shoppingList')?.subscribe({
+    this.dataStorageService.inviaRichiesta('GET', '/shoppingList')?.subscribe({
       next: (data) => {
         this.ingredients = data as IngredientModel[];
       },
@@ -28,12 +29,12 @@ export class ShoppingListService {
       (i) => i.name === newIngredient.name
     );
     if (ingredientFound) {
-      newIngredient.amount = ingredientFound.amount + newIngredient.amount;
-      if (newIngredient.amount < 0) {
-        newIngredient.amount = 0;
+      ingredientFound.amount += newIngredient.amount;
+      if (ingredientFound.amount < 0) {
+        ingredientFound.amount = 0;
       }
       this.patchIngredient(ingredientFound._id, {
-        amount: newIngredient.amount,
+        amount: ingredientFound.amount,
       });
     } else {
       // this.ingredients.push(newIngredient);
@@ -41,39 +42,54 @@ export class ShoppingListService {
     }
   }
   patchIngredient(id: string | undefined, ingredientAmount: Object) {
-    this.dataStorage
+    this.dataStorageService
       .inviaRichiesta('PATCH', '/shoppingList/' + id, ingredientAmount)
       ?.subscribe({
         next: (data) => {
+          this.remaining--;
           this.getIngredients();
           // alert('Ingrediente correttamente modificato');
-          this.ingredientAdded.next('Ingrediente correttamente modificato');
-        },
-        error: (err) => {
-          console.log(err);
+          if (this.ingredientAdded.observed) {
+            this.ingredientAdded.next('Ingrediente correttamente modificato');
+          } else if (this.remaining == 0) {
+            alert('Success');
+          }
         },
       });
   }
 
   postIngredient(newIngredient: IngredientModel) {
-    this.dataStorage
+    this.dataStorageService
       .inviaRichiesta('POST', '/shoppingList', newIngredient)
       ?.subscribe({
-        next: (data) => {
+        next: () => {
+          this.remaining--;
           this.getIngredients();
           // alert('Ingrediente correttamente aggiunto');
-          this.ingredientAdded.next('Ingrediente correttamente aggiunto');
+          if (this.ingredientAdded.observed) {
+            this.ingredientAdded.next('Ingrediente correttamente aggiunto');
+          } else if (this.remaining == 0) {
+            alert('Success');
+          }
         },
       });
   }
 
   addIngredients(newIngredients: IngredientModel[]) {
+    this.remaining = newIngredients.length;
     for (const ingredient of newIngredients) {
       this.addIngredient(ingredient);
     }
   }
 
   deleteIngredient(id: string) {
-    console.log(id);
+    this.dataStorageService
+      .inviaRichiesta('DELETE', '/shoppingList/' + id)
+      ?.subscribe({
+        next: () => {
+          this.getIngredients();
+          alert('Ingredient successfully deleted');
+        },
+      });
   }
 }
