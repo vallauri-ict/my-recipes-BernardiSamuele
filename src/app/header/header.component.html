@@ -6,15 +6,15 @@
         <span class="icon-bar"></span>
         }
       </button>
-      <a href="#" class="navbar-brand">Recipe Book</a>
+      <a routerLink="" class="navbar-brand">Recipe Book</a>
     </div>
     <div class="navbar-collapse" [class.collapse]="collapsed">
       <ul class="nav navbar-nav">
-        <li [ngClass]="{ active: isRecipe }">
-          <a href="#" (click)="onSelect('recipes')">Recipes</a>
+        <li routerLinkActive="active">
+          <a routerLink="/recipes">Recipes</a>
         </li>
-        <li [ngClass]="{ active: !isRecipe }">
-          <a href="#" (click)="onSelect('shopping-list')">Shopping List</a>
+        <li routerLinkActive="active">
+          <a routerLink="/shopping-list">Shopping List</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

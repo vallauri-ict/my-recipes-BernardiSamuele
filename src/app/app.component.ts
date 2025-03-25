@@ -8,20 +8,10 @@ import { LoadingComponent } from './shared/loading/loading.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    HeaderComponent,
-    RecipesComponent,
-    ShoppingListComponent,
-    LoadingComponent,
-  ],
+  imports: [HeaderComponent, LoadingComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'my-recipes';
-  isRecipe: boolean = true;
-
-  onNavigate(isRecipe: boolean) {
-    this.isRecipe = isRecipe;
-  }
 }

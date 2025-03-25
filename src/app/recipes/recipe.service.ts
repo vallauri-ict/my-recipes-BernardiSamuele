@@ -20,7 +20,6 @@ export class RecipeService {
   ) {}
 
   public getRecipes() {
-    this.loadingService.loadingOn();
     this.dataStorageService.inviaRichiesta('GET', '/recipes')?.subscribe({
       next: (data: any) => {
         this.recipes = data;
@@ -32,14 +31,19 @@ export class RecipeService {
       },
       error: (err) => {
         console.log(err);
-        this.loadingService.loadingOff();
-      },
-      complete: () => {
-        this.loadingService.loadingOff();
       },
     });
   }
+
   addIngredientsToShoppingList(ingredients: IngredientModel[]) {
     this.shoppingListService.addIngredients(ingredients);
+  }
+
+  setSelectedRecipe(id: string) {
+    this.dataStorageService.inviaRichiesta('GET', `/recipes/${id}`)?.subscribe({
+      next: (data: any) => {
+        this.selectedRecipe = data;
+      },
+    });
   }
 }
